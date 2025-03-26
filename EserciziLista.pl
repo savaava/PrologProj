@@ -32,9 +32,8 @@ sum_list(S, [H|T]) :-
 
 % calcolo il numero di elementi di una lista
 e_num_list(0, []).
-e_num_list(1, [_]).
-e_num_list(N, [H|T]) :- 
-    e_num_list(N1, T), N is N1+1.
+e_num_list(N, [_|TAIL]) :- 
+    e_num_list(N2, TAIL), N is N2+1.
 
 
 % elemento K'esimo della lista
@@ -44,3 +43,6 @@ element_at(X, [_|T], K) :-
 
 
 % reverse della lista
+my_reverse(L1,L2) :- my_rev(L1,L2,[]).
+my_rev([],L2,L2) :- !.
+my_rev([X|Xs],L2,Acc) :- my_rev(Xs,L2,[X|Acc]).
