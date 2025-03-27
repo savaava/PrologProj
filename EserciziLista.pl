@@ -42,6 +42,44 @@ element_at(X, [_|T], K) :-
     K>0, K1 is K-1, element_at(X, T, K1).
 
 
+% liste uguali
+list_is_equal([], []).
+list_is_equal([H1|T1], [H2|T2]) :- 
+    H1=H2, list_is_equal(T1, T2).
+
+
+% Rimuovere il primo elemento della lista
+is_tail(T, [_|T]).
+is_head(H, [H|_]).
+
+
+is_second_element(S, [_,S|_]).
+
+
+% predicato is_sorted L è vero se L è ordinata
+is_sorted([]).
+is_sorted([_]).
+is_sorted([H|T]) :- 
+    is_sorted(T), is_head(H1, T), H1>=H.
+
+
+% predicato num_occorrenze
+num_occorrenze(0, [], _).
+num_occorrenze(N, [H|T], E) :-
+    (num_occorrenze(N2, T, E), H=E, N is N2+1);
+    (num_occorrenze(N2, T, E), H\=E, N is N2).
+
+
+% Srivi predicato vero se data L1 e L2 la lista L3 è concatenazione di L1,L2
+
+
+
+% Rimuovere l'ultimo elemento
+list_no_last(L1, [L1]).
+list_no_last(L1, [H|T]) :- 
+    list_no_last([H|L1], T).
+
+
 % reverse della lista
 my_reverse(L1,L2) :- my_rev(L1,L2,[]).
 my_rev([],L2,L2) :- !.
