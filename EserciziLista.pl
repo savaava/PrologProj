@@ -68,10 +68,21 @@ num_occorrenze(0, [], _).
 num_occorrenze(N, [H|T], E) :-
     (num_occorrenze(N2, T, E), H=E, N is N2+1);
     (num_occorrenze(N2, T, E), H\=E, N is N2).
+%num_occ(L,Elem,Occ) vero se Occ è il numero di occorrenze di Elem nella Lista L
+num_occ([],_,0).
+num_occ([Elem|Coda],Elem,Occ) :-
+    num_occ(Coda,Elem,Occ1),
+    Occ is Occ1 + 1.
+num_occ([Testa|Coda],Elem,Occ) :-
+    num_occ(Coda,Elem,Occ),
+    Testa \= Elem.
 
 
 % Srivi predicato vero se data L1 e L2 la lista L3 è concatenazione di L1,L2
-
+is_concat([], List, List).
+is_concat([Head|Tail], List, [Head|Rest]) :-
+    is_concat(Tail, List, Rest).
+%is_concat(L3, L1, L2) :- append(L3, L1, L2).
 
 
 % Rimuovere l'ultimo elemento
