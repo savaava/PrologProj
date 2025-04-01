@@ -82,7 +82,14 @@ num_occ([Testa|Coda],Elem,Occ) :-
 is_concat([], List, List).
 is_concat([Head|Tail], List, [Head|Rest]) :-
     is_concat(Tail, List, Rest).
-%is_concat(L3, L1, L2) :- append(L3, L1, L2).
+
+%is_concat2([], [], []).
+is_concat2([], L2, L2).
+%is_concat2(L1, [], L1).
+is_concat2([H1|T1], L2, [H1|R]) :-
+    is_concat2(T1, L2, R).
+
+is_concat3(L3, L1, L2) :- append(L3, L1, L2).
 
 
 % Rimuovere l'ultimo elemento
@@ -95,3 +102,5 @@ list_no_last(L1, [H|T]) :-
 my_reverse(L1,L2) :- my_rev(L1,L2,[]).
 my_rev([],L2,L2) :- !.
 my_rev([X|Xs],L2,Acc) :- my_rev(Xs,L2,[X|Acc]).
+
+

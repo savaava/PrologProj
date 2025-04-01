@@ -2,7 +2,7 @@
 % deriva(F, DF, x). 
 
 % poichè x è costante adesso mi perdo le funzioni composte, ed è una costante per me
-deriva(sin(x), cos(x), x).
+deriva(sin(x), cos(), x).
 deriva(cos(x), -sin(x), x).
 deriva(exp(x), exp(x), x).
 deriva(log(x), 1/x, x).
