@@ -24,6 +24,22 @@ last_but_one(X, [X,_]).
 last_but_one(X, [_|Y]) :- last_but_one(X, Y).
 
 
+% Ricerca se un elemento E è presente in una lista
+is_E_present(E, [E|_]).
+is_E_present(E, [_|T]) :- membro(E, T).
+% Se E è la testa, restituisce true.
+% Se E non è la testa, richiama is_E_present(E, TC),
+% ripetendo il processo finché trova A o la lista diventa vuota.
+%              membro(a, [1,2,a,66]).
+%   Call: (12) membro(a, [1, 2, a, 66])
+%   Call: (13) membro(a, [2, a, 66])
+%   Call: (14) membro(a, [a, 66]) 
+%   Exit: (14) membro(a, [a, 66]) 
+%   Exit: (13) membro(a, [2, a, 66])
+%   Exit: (12) membro(a, [1, 2, a, 66])
+
+
+% somma degli elementi di una lista
 sum(A+B, A, B).
 sum_list(S, [S]).
 sum_list(S, [H|T]) :- 
@@ -37,26 +53,32 @@ e_num_list(N, [_|TAIL]) :-
 
 
 % elemento K'esimo della lista
-element_at(X, [X|_], 0).
-element_at(X, [_|T], K) :- 
-    K>0, K1 is K-1, element_at(X, T, K1).
+extract_k(XK, 0, [XK|_]).  % extract_k(XK, K, [XK|_]) :- K is 0.
+extract_k(XK, K, [_|T]) :- 
+    K>0, K2 is K-1, extract_k(XK, K2, T).
 
 
 % liste uguali
-list_is_equal([], []).
-list_is_equal([H1|T1], [H2|T2]) :- 
-    H1=H2, list_is_equal(T1, T2).
+are_lists_equals([], []).
+are_lists_equals([H|T1], [H|T2]) :- are_lists_equals(T1, T2). 
+% are_lists_equals([H1|T1], [H2|T2]) :- H1=H2, are_lists_equals(T1, T2).
 
 
 % Rimuovere il primo elemento della lista
-is_tail(T, [_|T]).
-is_head(H, [H|_]).
+no_head_list([], []).
+no_head_list(T, [_|T]).
+
+
+% Rimuovere l'ultimo elemento dalla lista
+no_last_element([], [_]).
+no_last_element([H|T1], [H|T2]) :- no_last_element(T1, T2).
 
 
 is_second_element(S, [_,S|_]).
 
 
 % predicato is_sorted L è vero se L è ordinata
+is_head(H, [H|_]).
 is_sorted([]).
 is_sorted([_]).
 is_sorted([H|T]) :- 
