@@ -26,7 +26,7 @@ last_but_one(X, [_|Y]) :- last_but_one(X, Y).
 
 % Ricerca se un elemento E è presente in una lista
 is_E_present(E, [E|_]).
-is_E_present(E, [_|T]) :- membro(E, T).
+is_E_present(E, [_|T]) :- is_E_present(E, T).
 % Se E è la testa, restituisce true.
 % Se E non è la testa, richiama is_E_present(E, TC),
 % ripetendo il processo finché trova A o la lista diventa vuota.
@@ -76,13 +76,13 @@ no_last_element([H|T1], [H|T2]) :- no_last_element(T1, T2).
 
 is_second_element(S, [_,S|_]).
 
+is_head(H, [H|_]).
 
 % predicato is_sorted L è vero se L è ordinata
-is_head(H, [H|_]).
+is_greater(X1, X2) :- X1>=X2.
 is_sorted([]).
 is_sorted([_]).
-is_sorted([H|T]) :- 
-    is_sorted(T), is_head(H1, T), H1>=H.
+is_sorted([H1, H2 | T]) :- is_greater(H2, H1), is_sorted([H2|T]).
 
 
 % predicato num_occorrenze
